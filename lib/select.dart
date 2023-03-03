@@ -35,11 +35,11 @@ class _SelectState extends State<Select> {
                 Navigator.pushNamed(context, 'ai');
               }, child: Text("With A.I.",style: TextStyle(fontSize: 20,color: Colors.white),)),
             ),
-            // Center(
-            //   child: TextButton(onPressed: () {
-            //     Navigator.pushNamed(context, 'home');
-            //   }, child: Text("Two Players",style: TextStyle(fontSize: 20,color: Colors.white),)),
-            // ),
+            Center(
+              child: TextButton(onPressed: () {
+                Navigator.pushNamed(context, 'home');
+              }, child: Text("Two Players",style: TextStyle(fontSize: 20,color: Colors.white),)),
+            ),
           ],
         ),
       ),
