@@ -17,30 +17,35 @@ class _WinnerState extends State<Winner> {
         appBar: AppBar(
           backgroundColor: Colors.black,
         ),
-        body: Center(
-          child: l1 != "draw"
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "$l1",
-                      style: TextStyle(fontSize: 30, color: Colors.white),
-                    ),
-                    Text(
-                      "Winneer",
-                      style: TextStyle(fontSize: 30, color: Colors.white),
-                    )
-                  ],
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "$l1",
-                      style: TextStyle(fontSize: 30, color: Colors.white),
-                    ),
-                  ],
-                ),
+        body: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Center(
+            child: l1 != "draw"
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "$l1",
+                        style: TextStyle(fontSize: 30, color: Colors.white),
+                      ),
+                      Text(
+                        "Winneer",
+                        style: TextStyle(fontSize: 30, color: Colors.white),
+                      )
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "$l1",
+                        style: TextStyle(fontSize: 30, color: Colors.white),
+                      ),
+                    ],
+                  ),
+          ),
         ),
       ),
     );

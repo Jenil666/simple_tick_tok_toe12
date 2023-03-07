@@ -17,7 +17,7 @@ class _SelectState extends State<Select> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: Text(
-            "Select Mode",
+            "Tick Take Toe",
           ),
           actions: [
             Center(
@@ -35,6 +35,7 @@ class _SelectState extends State<Select> {
                 Navigator.pushNamed(context, 'ai');
               }, child: Text("With A.I.",style: TextStyle(fontSize: 20,color: Colors.white),)),
             ),
+            SizedBox(height: 30,),
             Center(
               child: TextButton(onPressed: () {
                 Navigator.pushNamed(context, 'home');

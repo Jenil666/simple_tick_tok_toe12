@@ -1,27 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-class AI extends StatefulWidget {
-  const AI({Key? key}) : super(key: key);
+class Aim1 extends StatefulWidget {
+  const Aim1({Key? key}) : super(key: key);
 
   @override
-  State<AI> createState() => _AIState();
+  State<Aim1> createState() => _Aim1State();
 }
-// TODO : SET THE FLOW OF CODE
-class _AIState extends State<AI> {
-  List deco = [
-    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(right: BorderSide(color: Colors.white),bottom: BorderSide(color: Colors.white)))),
-    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(right: BorderSide(color: Colors.white),bottom: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
-    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
-    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white),top: BorderSide(color: Colors.white),right: BorderSide(color: Colors.white)))),
-    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white),top: BorderSide(color: Colors.white),right: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
-    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white),top: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
-    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(top: BorderSide(color: Colors.white),right: BorderSide(color: Colors.white)))),
-    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(top: BorderSide(color: Colors.white),right: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
-    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(top: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white))))
-  ];
-  int? rando,newindex;
+
+class _Aim1State extends State<Aim1> {
   List userInput = [
     "",
     "",
@@ -33,8 +19,20 @@ class _AIState extends State<AI> {
     "",
     "",
   ];
-  List checkIndex = [];
-  var rnd;
+  List deco = [
+    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(right: BorderSide(color: Colors.white),bottom: BorderSide(color: Colors.white)))),
+    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(right: BorderSide(color: Colors.white),bottom: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
+    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
+    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white),top: BorderSide(color: Colors.white),right: BorderSide(color: Colors.white)))),
+    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white),top: BorderSide(color: Colors.white),right: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
+    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white),top: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
+    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(top: BorderSide(color: Colors.white),right: BorderSide(color: Colors.white)))),
+    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(top: BorderSide(color: Colors.white),right: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white)))),
+    ShapeDecoration.fromBoxDecoration(BoxDecoration(border: Border(top: BorderSide(color: Colors.white),left: BorderSide(color: Colors.white))))
+  ];
+  List aisequence = [4,0,2,6,8,1,3,5,7];
+  int j = -1;
+  int? i;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,6 +47,7 @@ class _AIState extends State<AI> {
             IconButton(
                 onPressed: () {
                   setState(() {
+                    j = -1;
                     userInput = [
                       "",
                       "",
@@ -79,9 +78,10 @@ class _AIState extends State<AI> {
                 return InkWell(
                   onTap: () {
                     if(userInput[index] == "")
-                      {
-                        logic(index);
-                      }
+                    {
+                      userInput[index] = "O";
+                      aiinput(index);
+                    }
                   },
                   child: Container(
                     height: 50,
@@ -98,31 +98,25 @@ class _AIState extends State<AI> {
       ),
     );
   }
-  void genrnd()
-  {
-    var rnd = Random();
-    rando = rnd.nextInt(9);
-  }
 
-  void logic(int index)
-  {
-    userInput[index] = "O";
-    do{
-      genrnd();
-      if(userInput[0] != "" && userInput[1] != "" && userInput[2] != "" && userInput[3] != "" && userInput[4] != "" && userInput[5] != "" && userInput[6] != "" && userInput[7] != "" && userInput[8] != "")
+  void aiinput(int no) {
+    print("==== $no");
+    for(int j=0; j<9; j++)
+    {
+      if (userInput[aisequence[j]] == "")
       {
+        userInput[aisequence[j]] = "X";
         break;
       }
-    } while(userInput[rando!] != "");
-    if(userInput[rando!] == "")
-    {
-      userInput[rando!] = "X";
     }
-    setState(() {});
-    print("+++++++++++++++++++++++++$rando");
-    print(userInput);
+    check();
+  }
+
+
+
+  void check() {
     if ((userInput[0] == userInput[1]) && (userInput[0] == userInput[2]) && (userInput[0] != "")) {
-      Navigator.pushNamed(context, 'win', arguments: userInput[0]);
+      Navigator.pushNamed(context, 'win',arguments: "${userInput[0]}");
       userInput = [
         "",
         "",
@@ -136,7 +130,7 @@ class _AIState extends State<AI> {
       ];
     }
     else if ((userInput[3] == userInput[4]) && (userInput[3] == userInput[5]) && (userInput[3] != "")) {
-      Navigator.pushNamed(context, 'win', arguments: userInput[3]);
+      Navigator.pushNamed(context, 'win',arguments: "${userInput[3]}");
       userInput = [
         "",
         "",
@@ -150,7 +144,7 @@ class _AIState extends State<AI> {
       ];
     }
     else if ((userInput[6] == userInput[7]) && (userInput[6] == userInput[8]) && (userInput[6] != "")) {
-      Navigator.pushNamed(context, 'win', arguments: userInput[6]);
+      Navigator.pushNamed(context, 'win',arguments: "${userInput[6]}");
       userInput = [
         "",
         "",
@@ -164,7 +158,7 @@ class _AIState extends State<AI> {
       ];
     }
     else if ((userInput[0] == userInput[3]) && (userInput[0] == userInput[6]) && (userInput[0] != "")) {
-      Navigator.pushNamed(context, 'win', arguments: userInput[0]);
+      Navigator.pushNamed(context, 'win',arguments: "${userInput[0]}");
       userInput = [
         "",
         "",
@@ -178,7 +172,7 @@ class _AIState extends State<AI> {
       ];
     }
     else if ((userInput[1] == userInput[4]) && (userInput[1] == userInput[7]) && (userInput[1] != "")) {
-      Navigator.pushNamed(context, 'win', arguments: userInput[1]);
+      Navigator.pushNamed(context, 'win',arguments: "${userInput[1]}");
       userInput = [
         "",
         "",
@@ -192,7 +186,7 @@ class _AIState extends State<AI> {
       ];
     }
     else if ((userInput[2] == userInput[5]) && (userInput[2] == userInput[8]) && (userInput[2] != "")) {
-      Navigator.pushNamed(context, 'win', arguments: userInput[2]);
+      Navigator.pushNamed(context, 'win',arguments: "${userInput[2]}");
       userInput = [
         "",
         "",
@@ -206,7 +200,7 @@ class _AIState extends State<AI> {
       ];
     }
     else if ((userInput[0] == userInput[4]) && (userInput[0] == userInput[8]) && (userInput[0] != "")) {
-      Navigator.pushNamed(context, 'win', arguments: userInput[0]);
+      Navigator.pushNamed(context, 'win',arguments: "${userInput[0]}");
       userInput = [
         "",
         "",
@@ -218,9 +212,9 @@ class _AIState extends State<AI> {
         "",
         "",
       ];
-    }
+          }
     else if ((userInput[2] == userInput[4]) && (userInput[2] == userInput[6]) && (userInput[2] != "")) {
-      Navigator.pushNamed(context, 'win', arguments: userInput[2]);
+      Navigator.pushNamed(context, 'win',arguments: "${userInput[2]}");
       userInput = [
         "",
         "",
@@ -246,6 +240,8 @@ class _AIState extends State<AI> {
         "",
         "",
       ];
-    };
+    }
+    setState(() {});
   }
+
 }
